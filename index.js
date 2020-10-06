@@ -38,7 +38,27 @@ connection.connect(function (err) {
         }
       });
   }
-
+  
+  function add() {
+    inquirer
+      .prompt({
+        name: 'whatAdd',
+        type: 'list',
+        message: 'What would you like to add?',
+        choices: ['Department', 'Role','Employee', 'I changed my mind.']
+      })
+      .then(function (answer) {
+        if (answer.whatAdd === 'Department') {
+          addDepartment();
+        } else if (answer.whatAdd === 'Role') {
+          AddRole();
+        } else if (answer.whatAdd === 'Employee') {
+          AddEmployee();
+        } else if (answer.whatAdd === 'I changed my mind.') {
+          init();
+        }
+      });
+  }
 
 
   function view() {
