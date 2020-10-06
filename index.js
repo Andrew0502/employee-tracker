@@ -12,11 +12,9 @@ var connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
+    init();
   });
 
-  function init(){
-
-  }
 
   function init() {
     inquirer
@@ -63,12 +61,13 @@ connection.connect(function (err) {
   function addDepartment() {
     inquirer
       .prompt({
-        name: 'departmentAdd',
+        name: 'depAdd',
         type: 'input',
-        message: 'What would you like to add?',
-        choices: ['Department', 'Role','Employee', 'I changed my mind.']
+        message: 'What do you want to name the new Department?',
+      }).then(({depAdd}) =>{
+        console.log(depAdd);
+        // addNewDep(depName);
       })
-      
   }
 
   function view() {
