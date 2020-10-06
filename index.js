@@ -61,13 +61,22 @@ connection.connect(function (err) {
   function addDepartment() {
     inquirer
       .prompt({
-        name: 'depAdd',
+        name: 'depName',
         type: 'input',
         message: 'What do you want to name the new Department?',
-      }).then(({depAdd}) =>{
-        console.log(depAdd);
-        // addNewDep(depName);
+      }).then(({depName}) =>{
+        console.log(depName);
+        addNewDep(depName);
       })
+  }
+
+  function addNewDep(name){
+    connection.query("INSERT INTO department SET ? ", 
+    {name: name}, (error, data) => {
+        if (error) throw error;
+        console.table(data);
+        init();
+    });
   }
 
   function view() {
