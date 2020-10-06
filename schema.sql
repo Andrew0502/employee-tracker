@@ -20,3 +20,8 @@ CREATE TABLE role (
     department_id INTEGER,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE department (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    name VARCHAR(30)
+);
