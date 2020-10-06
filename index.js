@@ -23,17 +23,28 @@ connection.connect(function (err) {
       .prompt({
         name: 'whatDo',
         type: 'list',
-        message: 'Would you like to [POST] an auction or [BID] on an auction?',
-        choices: ['POST', 'BID', 'EXIT']
+        message: 'Would you like to do?',
+        choices: ['ADD', 'VIEW','UPDATE', 'EXIT']
       })
       .then(function (answer) {
-        // based on their answer, either call the bid or the post functions
-        if (answer.postOrBid === 'POST') {
-          postAuction();
-        } else if (answer.postOrBid === 'BID') {
-          bidAuction();
-        } else {
+        if (answer.whatDo === 'ADD') {
+          add();
+        } else if (answer.whatDo === 'VIEW') {
+          view();
+        } else if (answer.whatDo === 'UPDATE') {
+          update();
+        } else if (answer.whatDo === 'EXIT') {
           connection.end();
         }
       });
+  }
+
+
+
+  function view() {
+
+  }
+
+  function update() {
+
   }
