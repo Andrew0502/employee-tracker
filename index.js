@@ -38,7 +38,7 @@ connection.connect(function (err) {
         }
       });
   }
-  
+
   function add() {
     inquirer
       .prompt({
@@ -60,6 +60,16 @@ connection.connect(function (err) {
       });
   }
 
+  function addDepartment() {
+    inquirer
+      .prompt({
+        name: 'departmentAdd',
+        type: 'input',
+        message: 'What would you like to add?',
+        choices: ['Department', 'Role','Employee', 'I changed my mind.']
+      })
+      
+  }
 
   function view() {
 
