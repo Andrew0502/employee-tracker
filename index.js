@@ -167,6 +167,33 @@ connection.connect(function (err) {
   }
 
 //===========================================================================
+  function viewDepartment() {
+    connection.query("SELECT * FROM department;", (error, data) => {
+      if (error) throw error;
+        console.table(data);
+        init();
+    })
+  }
+
+  function viewRole() {
+    connection.query("SELECT * FROM role;", (error, data) => {
+      if (error) throw error;
+        console.table(data);
+        init();
+    })
+  }
+
+  function viewEmployee() {
+    connection.query("SELECT * FROM Employee;", (error, data) => {
+      if (error) throw error;
+        console.table(data);
+        init();
+    })
+  }
+
+
+//===========================================================================
+
 
   function addNewDep(name){
     connection.query("INSERT INTO department SET ? ", 
@@ -196,3 +223,5 @@ connection.connect(function (err) {
         init();
     });
   }
+
+//===========================================================================
