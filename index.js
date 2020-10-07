@@ -86,15 +86,13 @@ connection.connect(function (err) {
       name: 'whatUpdate',
       type: 'list',
       message: 'What would you like to update?',
-      choices: ['Department', 'Role','Employee', 'I changed my mind.']
+      choices: ['Employee Role','Employee Manager', 'I changed my mind.']
     })
     .then(function (answer) {
-      if (answer.whatUpdate === 'Department') {
-        updateDepartment();
-      } else if (answer.whatUpdate === 'Role') {
-        updateRole();
-      } else if (answer.whatUpdate === 'Employee') {
-        updateEmployee();
+      if (answer.whatUpdate === 'Employee Role') {
+        updateEmployeeRole();
+      } else if (answer.whatUpdate === 'Employee Manager') {
+        updateEmployeeManager();
       } else if (answer.whatUpdate === 'I changed my mind.') {
         init();
       }
@@ -194,6 +192,52 @@ connection.connect(function (err) {
 
 //===========================================================================
 
+  function updateEmployeeRole() {
+    inquirer
+      .prompt([{
+        name: 'chooseEmployee',
+        type: 'input',
+        message: "What is the ID of the employee you which to change the role of?",
+        },
+        {
+        name: 'updateRole',
+        type: 'input',
+        message: "What do you want to change this employee's role to?",
+      }]).then(({updateRole, chooseEmployee}) =>{
+        // console.log(depName)
+        connection.query(`UPDATE employee SET role_id = ${updateRole} WHERE id = ${chooseEmployee}; `,
+         (error, data) => {
+        if (error) throw error;
+        // console.table(data);
+        init();
+      });
+    });
+  };
+
+  function updateEmployeeManager() {
+    inquirer
+      .prompt([{
+        name: 'chooseEmpManager',
+        type: 'input',
+        message: "What is the ID of the employee you which to change the manager of?",
+        },
+        {
+        name: 'updateManager',
+        type: 'input',
+        message: "What do you want to change this employee's manager to?",
+      }]).then(({updateRole, chooseEmpManager}) =>{
+        // console.log(depName)
+        connection.query(`UPDATE employee SET role_id = ${updateRole} WHERE id = ${chooseEmployee}; `,
+         (error, data) => {
+        if (error) throw error;
+        // console.table(data);
+        init();
+      });
+    });
+  };
+
+
+//===========================================================================
 
   function addNewDep(name){
     connection.query("INSERT INTO department SET ? ", 

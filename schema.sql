@@ -45,3 +45,14 @@ INSERT INTO department (name) values ('Underwriting');
 -- SELECT title, firstName, lastName
 -- FROM books
 -- INNER JOIN authors ON books.authorId = authors.id;
+
+SELECT employee.first_name, employee.last_name, employee.role_id, role.title
+  FROM employee
+  INNER JOIN role
+  ON employee.role_id = role.id;
+
+
+
+DELETE FROM role WHERE id = 5;
+
+UPDATE role SET title = 'Cthulu Wrangler' WHERE title = 'Tertiary Cthulu Wrangler';
