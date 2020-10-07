@@ -32,8 +32,6 @@ connection.connect(function (err) {
           view();
         } else if (answer.whatDo === 'UPDATE') {
           update();
-        } else if (answer.whatDo === 'DELETE') {
-          deleteChoice();
         } else if (answer.whatDo === 'EXIT') {
           connection.end();
         }
@@ -110,7 +108,6 @@ connection.connect(function (err) {
         type: 'input',
         message: 'What do you want to name the new department?',
       }).then(({depName}) =>{
-        // console.log(depName)
         addNewDep(depName);
       })
   }
@@ -184,7 +181,8 @@ connection.connect(function (err) {
   }
 
   function viewEmployee() {
-    connection.query("SELECT * FROM Employee;", (error, data) => {
+    connection.query("SELECT employee.first_name, employee.last_name, employee.role_id, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id;", 
+    (error, data) => {
       if (error) throw error;
         console.table(data);
         init();
@@ -206,11 +204,10 @@ connection.connect(function (err) {
         type: 'input',
         message: "What do you want to change this employee's role to?",
       }]).then(({updateRole, chooseEmployee}) =>{
-        // console.log(depName)
+        
         connection.query(`UPDATE employee SET role_id = ${updateRole} WHERE id = ${chooseEmployee}; `,
          (error, data) => {
         if (error) throw error;
-        // console.table(data);
         init();
       });
     });
@@ -228,11 +225,10 @@ connection.connect(function (err) {
         type: 'input',
         message: "What do you want to change this employee's manager to?",
       }]).then(({updateManager, chooseEmpManager}) =>{
-        // console.log(depName)
+        
         connection.query(`UPDATE employee SET manager_id = ${updateManager} WHERE id = ${chooseEmpManager}; `,
          (error, data) => {
         if (error) throw error;
-        // console.table(data);
         init();
       });
     });
@@ -245,7 +241,6 @@ connection.connect(function (err) {
     connection.query("INSERT INTO department SET ? ", 
     {name: name}, (error, data) => {
         if (error) throw error;
-        // console.table(data);
         init();
     });
   }
@@ -255,7 +250,6 @@ connection.connect(function (err) {
     {title: title, salary: salary, department_id: department_id}, 
     (error, data) => {
         if (error) throw error;
-        // console.table(data);
         init();
     });
   }
@@ -265,7 +259,6 @@ connection.connect(function (err) {
     {first_name: first_name, last_name: last_name, role_id: role_id, manager_id: manager_id}, 
     (error, data) => {
         if (error) throw error;
-        // console.table(data);
         init();
     });
   }
