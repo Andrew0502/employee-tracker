@@ -137,13 +137,42 @@ connection.connect(function (err) {
       })
   }
 
+  function addEmployee() {
+    inquirer
+      .prompt([{
+        name: 'employeeFirstName',
+        type: 'input',
+        message: "What is the new Employee's first name?",
+      },
+      {
+        name: 'employeeLastName',
+        type: 'input',
+        message: "What is the new Employee's last name?",
+      },
+      {
+          name: 'employeeRoleId',
+          type: 'input',
+          message: "What is the new employee's role id?",
+      },
+      {
+            name: 'employeeManagerID',
+            type: 'input',
+            message: "What is the new employee's manager id?"
+
+      }]).then(
+          ({employeeFirstName, employeeLastName, employeeRoleId, employeeManagerId}) =>{
+        console.log(employeeFirstName, employeeLastName, employeeRoleId, employeeManagerId);
+        addNewEmployee(employeeFirstName, employeeLastName, employeeRoleId, employeeManagerId);
+      })
+  }
+
 //===========================================================================
 
   function addNewDep(name){
     connection.query("INSERT INTO department SET ? ", 
     {name: name}, (error, data) => {
         if (error) throw error;
-        console.table(data);
+        // console.table(data);
         init();
     });
   }
@@ -153,7 +182,17 @@ connection.connect(function (err) {
     {title: title, salary: salary, department_id: department_id}, 
     (error, data) => {
         if (error) throw error;
-        console.table(data);
+        // console.table(data);
+        init();
+    });
+  }
+
+  function addNewEmployee(first_name, last_name, role_id, manager_id){
+    connection.query("INSERT INTO employee SET ? ", 
+    {first_name: first_name, last_name: last_name, role_id: role_id, manager_id: manager_id}, 
+    (error, data) => {
+        if (error) throw error;
+        // console.table(data);
         init();
     });
   }
