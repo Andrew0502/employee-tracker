@@ -181,14 +181,13 @@ connection.connect(function (err) {
   }
 
   function viewEmployee() {
-    connection.query("SELECT employee.first_name, employee.last_name, employee.role_id, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id;", 
+    connection.query("SELECT employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id;", 
     (error, data) => {
       if (error) throw error;
         console.table(data);
         init();
     })
   }
-
 
 //===========================================================================
 
