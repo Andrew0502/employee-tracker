@@ -32,6 +32,8 @@ connection.connect(function (err) {
           view();
         } else if (answer.whatDo === 'UPDATE') {
           update();
+        } else if (answer.whatDo === 'DELETE') {
+          deleteChoice();
         } else if (answer.whatDo === 'EXIT') {
           connection.end();
         }
@@ -225,9 +227,9 @@ connection.connect(function (err) {
         name: 'updateManager',
         type: 'input',
         message: "What do you want to change this employee's manager to?",
-      }]).then(({updateRole, chooseEmpManager}) =>{
+      }]).then(({updateManager, chooseEmpManager}) =>{
         // console.log(depName)
-        connection.query(`UPDATE employee SET role_id = ${updateRole} WHERE id = ${chooseEmployee}; `,
+        connection.query(`UPDATE employee SET manager_id = ${updateManager} WHERE id = ${chooseEmpManager}; `,
          (error, data) => {
         if (error) throw error;
         // console.table(data);
